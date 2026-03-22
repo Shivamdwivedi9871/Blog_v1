@@ -65,7 +65,7 @@ class CommentDetailView(generics.RetrieveAPIView, generics.UpdateAPIView, generi
         if self.request.user != serializer.instance.author:
             raise ValidationError(
                 f'you don\'t have permission to edit this comment')
-        return serializer.save(authore=self.request.user)
+        return serializer.save(author=self.request.user)
 
     def perform_destroy(self, instance):
         if self.request.user != instance.author:
