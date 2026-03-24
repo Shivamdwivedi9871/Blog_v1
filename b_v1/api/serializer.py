@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from blog_v1.models import Post, Comment
+from b_v1.models import Post, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'author', 'created_at', 'updated_at']
+        fields = ['title', 'content', 'created', 'updated']
         read_only_fields = ['author']
 
 
@@ -14,10 +14,10 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['post', 'author', 'text', 'created_at']
-        read_only_fields = ['author', 'created_at']
+        fields = ['post', 'author', 'content', 'post_detail']
+        read_only_fields = ['author', 'created']
 
     def validate(self, data):
-        if not data.get('text'):
-            raise serializers.ValidationError('Comment cannot be empty')
+        if not data.get('content'):
+            return serializers.ValidationError('Comment cannot be empty')
         return data
